@@ -58,7 +58,7 @@ Contact.getAll = (phone, result) => {
   });
 };
 
-Contact.getAllPublished = result => {
+Contact.getAllFamily_phone = result => {
   sql.query("SELECT * FROM contacts WHERE family_phone=true", (err, res) => {
     if (err) {
       console.log("error: ", err);

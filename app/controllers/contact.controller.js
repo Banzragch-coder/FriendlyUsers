@@ -15,8 +15,8 @@ exports.findOne = (req, res) => {
   
 };
 
-// find all published contacts
-exports.findAllPublished = (req, res) => {
+// find all family_phone contacts
+exports.findAllFamily_phone = (req, res) => {
   
 };
 
@@ -47,9 +47,9 @@ exports.create = (req, res) => {
   
     // Create a contact
     const contact = new Contact({
-      title: req.body.title,
-      description: req.body.description,
-      published: req.body.published || false
+      phone: req.body.phone,
+      family_who: req.body.family_who,
+      family_phone: req.body.family_phone || false
     });
   
     // Save contact in the database
@@ -65,9 +65,9 @@ exports.create = (req, res) => {
 
 // Retrieve all contacts from the database (with condition).
 exports.findAll = (req, res) => {
-    const title = req.query.title;
+    const phone = req.query.phone;
   
-    Contact.getAll(title, (err, data) => {
+    Contact.getAll(phone, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -77,8 +77,8 @@ exports.findAll = (req, res) => {
     });
   };
   
-  exports.findAllPublished = (req, res) => {
-    Contact.getAllPublished((err, data) => {
+  exports.findAllFamily_phone = (req, res) => {
+    Contact.getAllFamily_phone((err, data) => {
       if (err)
         res.status(500).send({
           message:

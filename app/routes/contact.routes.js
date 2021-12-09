@@ -9,8 +9,8 @@ module.exports = app => {
     // Retrieve all contacts
     router.get("/", contacts.findAll);
   
-    // Retrieve all published contacts
-    router.get("/published", contacts.findAllPublished);
+    // Retrieve all family_phone contacts
+    router.get("/Family_phone", contacts.findAllFamily_phone);
   
     // Retrieve a single contact with id
     router.get("/:id", contacts.findOne);

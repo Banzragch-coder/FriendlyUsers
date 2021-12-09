@@ -1,0 +1,26 @@
+@media screen and (max-width: 1000px) {
+    .title {
+      text-align: center;
+    }
+  }
+
+  .input {
+    width: 240px;
+  }
+  .form {
+    justify-content: end;
+    text-align: end;
+  }
+  .but {
+    text-align: center;
+  
+  }
+  .check {
+    /* width: 240px; */
+    justify-content: start ;
+    text-align: start;
+    /* text-align: center; */
+    /* background-color: aqua; */
+    margin:auto;
+
+ }
