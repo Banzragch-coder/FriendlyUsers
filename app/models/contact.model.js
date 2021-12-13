@@ -1,7 +1,8 @@
+const { createPool } = require("mysql");
 const sql = require("./db.js");
 
 // constructor
-const Contact = function(contact) {
+const Contact = function (contact) {
   this.phone = contact.phone;
   this.family_who = contact.family_who;
   this.family_phone = contact.family_phone;
@@ -58,7 +59,7 @@ Contact.getAll = (phone, result) => {
   });
 };
 
-Contact.getAllFamily_phone = result => {
+Contact.getAllFamily_phone = (result) => {
   sql.query("SELECT * FROM contacts WHERE family_phone=true", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -113,7 +114,7 @@ Contact.remove = (id, result) => {
   });
 };
 
-Contact.removeAll = result => {
+Contact.removeAll = (result) => {
   sql.query("DELETE FROM contacts", (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -127,3 +128,10 @@ Contact.removeAll = result => {
 };
 
 module.exports = Contact;
+
+// pool.query('select * from contacts where phone=""');
+
+// SELECT family_who FROM contacts
+// SELECT * FROM contacts Where phone = "";
+// UPDATE contacts SET family_who ="", family_phone="" WHERE phone="";
+// SELECT * FROM contacts WHERE phone="" LIMIT 10;

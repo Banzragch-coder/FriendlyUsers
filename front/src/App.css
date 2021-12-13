@@ -10,39 +10,28 @@
   margin-bottom: 15px;
   border-radius: 6px;
   box-shadow: rgb(0 0 0 / 8%) 0px 0.5px 8px 0px;
-  background-color: rgb(219, 217, 217);
+  background-color: #dfe0e2;
   width: 60rem;
 }
 .ant-input-number-handler-wrap {
   visibility: hidden !important;
 }
 
-.App-link {
-  color: #61dafb;
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
 }
-.App {
-  text-align: center;
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
 }
-/* .ant-table-thead {
-  color: #61dafb;
-  font-size: 1.2rem;
-} */
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ant-form-item-control-input-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,26 +1,34 @@
 const express = require("express");
 const cors = require("cors");
-
+// const http = require("http");
+// const fs = require("fs");
+// const urlLib = require("url");
+// const path = require("path");
 const app = express();
-
+// ---------------table---------------------------------------------------
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3001/#/login",
 };
 
 app.use(cors(corsOptions));
-
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
-
-
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome ....dfghj.." });
+  res.json({ message: "Welcome =================>" });
 });
 
+app.get("/test", function (req, res) {
+  res.sendFile("front/src/login.js", { root: __dirname });
+});
 
-require("./app/routes/contact.routes")(app);
+app.use("/login", (req, res) => {
+  res.send({
+    token: "test123",
+  });
+});
+
+require("./app/routes/contact.routes.js")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
