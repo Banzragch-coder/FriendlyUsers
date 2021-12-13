@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 // ---------------table---------------------------------------------------
 var corsOptions = {
-  origin: "http://localhost:3001/#/login",
+  origin: "http://localhost:3001/#/contact",
 };
 
 app.use(cors(corsOptions));
@@ -16,16 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome =================>" });
-});
-
-app.get("/test", function (req, res) {
-  res.sendFile("front/src/login.js", { root: __dirname });
-});
-
-app.use("/login", (req, res) => {
-  res.send({
-    token: "test123",
-  });
 });
 
 require("./app/routes/contact.routes.js")(app);

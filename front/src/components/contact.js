@@ -1,16 +1,16 @@
 import "antd/dist/antd.css";
 import "../App.css";
 import "../../src/App.css";
-import { Button, Table, Modal, Form, Input, Layout, Content } from "antd";
+import { Button, Table, Modal, Form, Input, Layout } from "antd";
 import React, { useState, useEffect } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 export default function Contact() {
-  const { Footer, Content } = Layout;
+  const { Footer, Header } = Layout;
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
-  const layout = { labelCol: { span: 26 }, wrapperCol: { span: 26 } };
+  // const layout = { labelCol: { span: 26 }, wrapperCol: { span: 26 } };
   useEffect(() => {
     axios.get("http://localhost:8080/api/contacts/89110001").then((res) => {
       console.log(res);
@@ -96,15 +96,11 @@ export default function Contact() {
 
   return (
     <Form>
-      <header
-        style={{
-          background: "#3d3c3a",
-          color: "white",
-          fontSize: "1.8rem",
-        }}
+      <Header
+        style={{ background: "#3d3c3a", color: "white", fontSize: "1.8rem" }}
       >
         <div>Unitel.mn</div>
-      </header>
+      </Header>
       <Layout className="layout" style={{ minHeight: "100vh" }}>
         <div
           style={{
@@ -184,18 +180,17 @@ export default function Contact() {
           </div>
         </div>
       </Layout>
-      <footer
+      <Footer
         style={{
-          justifyContent: "",
           position: "sticky",
           textAlign: "center",
           background: "#3d3c3a",
           color: "white",
         }}
       >
+        {" "}
         {"©2021 "}
-        <div></div>
-      </footer>
+      </Footer>
     </Form>
   );
 }
