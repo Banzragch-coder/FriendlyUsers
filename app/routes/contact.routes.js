@@ -10,11 +10,13 @@ module.exports = (app) => {
 
   router.get("/:id", contacts.findAllByPhone);
 
-  router.get("/:id", contacts.findOne);
+  // router.get("/:id", contacts.findOne);
 
-  router.put("/:id", contacts.update);
+  // router.post("/:id", contacts.findOne);
 
-  router.delete("/:id", contacts.delete);
+  // router.put("/:id", contacts.update);
+
+  // router.delete("/:id", contacts.delete);
 
   app.use("/api/contacts", router);
 };

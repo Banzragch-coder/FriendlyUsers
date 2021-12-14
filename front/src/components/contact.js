@@ -10,7 +10,6 @@ export default function Contact() {
   const { Footer, Header } = Layout;
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
-  // const layout = { labelCol: { span: 26 }, wrapperCol: { span: 26 } };
   useEffect(() => {
     axios.get("http://localhost:8080/api/contacts/89110001").then((res) => {
       console.log(res);
@@ -23,17 +22,17 @@ export default function Contact() {
   const [dataSourse, setDataSourse] = useState([]);
   const columns = [
     {
-      key: "3",
+      key: "1",
       title: "Таны хэн болох",
       dataIndex: "family_who",
     },
     {
-      key: "4",
+      key: "2",
       title: "Утасны дугаар",
       dataIndex: "family_phone",
     },
     {
-      key: "5",
+      key: "3",
       title: "Төлөв",
       render: (record) => {
         return (
@@ -80,7 +79,6 @@ export default function Contact() {
   };
 
   const onAddContact = () => {
-    // const randomNumber = Math.round(Math.random() * (useState.dataSource.length - 1));
     const randomNumber = parseInt(Math.random() * 1000);
     const newContact = {
       id: randomNumber,

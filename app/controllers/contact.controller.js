@@ -6,7 +6,6 @@ exports.create = (req, res) => {
       message: "Агуулга хоосон байж болохгүй!",
     });
   }
-
   const contact = new Contact({
     phone: req.body.phone,
     family_who: req.body.family_who,
@@ -24,6 +23,7 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   const phone = req.query.phone;
+
   Contact.getAll(phone, (err, data) => {
     if (err)
       res.status(500).send({
@@ -35,16 +35,14 @@ exports.findAll = (req, res) => {
 
 exports.findAllByPhone = (req, res) => {
   const phone = req.params.id;
-
   console.log(phone);
-
-  Contact.getAll(phone, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message: err.message || " Харилцагчдыг сэргээх явцад алдаа гарлаа.",
-      });
-    else res.send(data);
-  });
+  // Contact.getAll(phone, (err, data) => {
+  //   if (err)
+  //     res.status(500).send({
+  //       message: err.message || " Харилцагчдыг сэргээх явцад алдаа гарлаа.",
+  //     });
+  //   else res.send(data);
+  // });
 };
 
 exports.findOne = (req, res) => {
@@ -65,14 +63,12 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // Validate Request
   if (!req.body) {
     res.status(400).send({
       message: "Агуулга хоосон байж болохгүй!",
     });
+    console.log(req.body);
   }
-
-  console.log(req.body);
 
   Contact.updateById(req.params.id, new Contact(req.body), (err, data) => {
     if (err) {
