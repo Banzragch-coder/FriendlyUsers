@@ -6,6 +6,7 @@ import Contact from "../src/components/contact";
 import Success from "../src/components/success";
 import { Redirect, Route, Switch, HashRouter } from "react-router-dom";
 import { Spin } from "antd";
+import "./theme.css";
 import "devextreme/dist/css/dx.light.css";
 function App() {
   const [isLoader, setIsLoader] = useState(false);

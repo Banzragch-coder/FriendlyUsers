@@ -1,5 +1,6 @@
 const { query } = require("express");
 const { createPool } = require("mysql");
+const connection = require("./db.js");
 const sql = require("./db.js");
 
 // constructor
@@ -15,7 +16,7 @@ Contact.getNumbers = (phone, result) => {
     query += ` WHERE phone LIKE '%${phone}%'`;
   } else query += ' WHERE phone like " + phone';
 
-  console.log("Phoneee ====", query);
+  // console.log("Phoneee ====", query);
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -27,7 +28,7 @@ Contact.getNumbers = (phone, result) => {
 };
 
 Contact.create = (newContact, result) => {
-  console.log(newContact);
+  // console.log(newContact);
   var query =
     "INSERT INTO contacts (phone,family_who,family_phone) values  ('" +
     newContact.phone +
@@ -36,20 +37,20 @@ Contact.create = (newContact, result) => {
     "','" +
     newContact.family_phone +
     "')";
-  console.log(query);
+  // console.log(query);
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
       return;
     }
-    console.log("created contact: ", { id: res.insertId, ...newContact });
+    // console.log("created contact: ", { id: res.insertId, ...newContact });
     result(null, { id: res.insertId, ...newContact });
   });
 };
 
 Contact.remove = (id, result) => {
-  console.log(id);
+  // console.log(id);
   var query = "DELETE FROM contacts WHERE id = '" + id + "'";
   sql.query(query, (err, res) => {
     if (err) {
@@ -62,14 +63,14 @@ Contact.remove = (id, result) => {
       result({ kind: "not_found" }, null);
       return;
     }
-    console.log("deleted contact with id: ", query);
+    // console.log("deleted contact with id: ", query);
     result(null, res);
   });
 };
 // ------------------------------------------------------UPDATE DATA---------------------------------
-Contact.updateById = (id, contact, result) => {
-  console.log("UPDATE ====" + id, " Contact====" + contact);
 
+Contact.updateById = (id, contact, result) => {
+  // console.log("UPDATE ====" + id, " Contact====" + contact.family_who);
   var query =
     "UPDATE contacts SET  family_who = '" +
     contact.family_who +
@@ -78,8 +79,7 @@ Contact.updateById = (id, contact, result) => {
     "' WHERE id = '" +
     id +
     "'";
-  console.log("queryyyyyyyyy", query);
-  // sql.query(query);
+  // console.log("queryyyyyyyyy", query);
   sql.query(query, (err, res) => {
     if (err) {
       console.log("error: ", err);
@@ -87,11 +87,10 @@ Contact.updateById = (id, contact, result) => {
       return;
     }
     if (res.affectedRows == 0) {
-      // not found Contact with the id
       result({ kind: "not_found" }, null);
       return;
     }
-    console.log("updated contact: ", { id: id, query });
+    // console.log("updated contact: ", { id: id, query });
     result(null, { id: id, ...contact });
     return;
   });

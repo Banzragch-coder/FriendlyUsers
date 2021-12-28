@@ -5,9 +5,13 @@ module.exports = (app) => {
 
   router.get("/phone", contacts.findPhone);
 
-  router.post("/phone", contacts.create);
+  // router.post("/phone", contacts.create);
 
-  router.put("/phone", contacts.update);
+  router.post("/login", contacts.login);
+
+  router.put("/phone/:id", contacts.updateId);
+
+  router.post("/phone", contacts.create);
 
   router.delete("/phone/:id", contacts.delete);
 

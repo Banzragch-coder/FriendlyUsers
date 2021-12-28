@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Checkbox, Layout, message } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  Layout,
+  message,
+  Divider,
+  Row,
+  Col,
+  Card,
+  Modal,
+} from "antd";
+import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+// import { MailOutlined, LockOutlined } from "@ant-design/icons";
 
 export default function Login(props) {
   const [dataSourse, setDataSourse] = useState([]);
@@ -15,18 +28,10 @@ export default function Login(props) {
   const [form] = Form.useForm();
   const history = useHistory();
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:7000/api/login/").then((res) => {
-  //     console.log(res);
-  //     setDataSourse(res.data);
-  //   });
-  // }, []);
-
   const { Header, Footer } = Layout;
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   const onFinish = (values) => {
-    const pass = values.pass;
-    const mail = values.mail;
     props.setIsLoader(true);
     axios
       .post("http://friendlyusers.uni/api/contacts/login", {
@@ -35,8 +40,6 @@ export default function Login(props) {
       })
       .then((res) => {
         props.setIsLoader(false);
-        console.log("pass, name ===>", res);
-        console.log(res.status);
         if (res && res.data && res.status === 200) {
           message.success("Амжилттай нэвтэрлээ.");
           sessionStorage.setItem("Token", res.data);
@@ -53,111 +56,125 @@ export default function Login(props) {
         message.error("Нэвтрэх үед алдаа гарлаа.");
       });
   };
+  const renderOtherSignIn = (
+    <div>
+      <Divider>
+        <span className="text-muted font-size-base font-weight-normal">
+          Тавтай морилно уу
+        </span>
+      </Divider>
+    </div>
+  );
 
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
-    <Layout className="layout" style={{ minHeight: "100vh" }}>
-      <Header
-        style={{ background: "#3d3c3a", color: "white", fontSize: "1.8rem" }}
+    <Layout
+      className="layout"
+      style={{
+        minHeight: "100vh",
+        justifyContent: "center",
+        // backgroundColor: "#f0f0f0",
+      }}
+    >
+      <div
+        className="h-100"
+        className="container d-flex flex-column justify-content-center h-100"
       >
-        <div>Unitel.mn</div>
-      </Header>
-      <Form
-        style={{
-          background: "#FFFFFF",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "14rem",
-        }}
-        name="normal_login"
-        className="login-form"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
+        <Row justify="center">
+          <Col xs={20} sm={20} md={20} lg={7}>
+            <Card style={{ boxShadow: "2px 4px 2px 4px #f5f5f5" }}>
+              <div className="my-4">
+                <div className="text-center">
+                  <div>
+                    <img src="../logo.svg" width={"50%"} />
+                  </div>
+                  <p
+                    style={{
+                      marginTop: "16px",
+                      fontWeight: "bold",
+                      color: "#1a3353",
+                    }}
+                  >
+                    FRIENDLY USERS
+                  </p>
+                  <p className="text-center">Домайн хаягаар нэвтэрч орно уу!</p>
+                </div>
+                <Row justify="center">
+                  <Col xs={24} sm={24} md={20} lg={20}>
+                    <>
+                      <Form
+                        onFinish={onFinish}
+                        layout="vertical"
+                        name="login-form"
+                      >
+                        <Form.Item
+                          name="mail"
+                          label="Домайн хаяг"
+                          rules={[
+                            {
+                              required: true,
+                              message: "Та и-мэйл хаягаа оруулна уу",
+                            },
+                          ]}
+                        >
+                          <Input
+                            prefix={<MailOutlined className="text-primary" />}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          name="pass"
+                          label={
+                            <div>
+                              <span>Нууц үг</span>
+                              <a
+                                href="https://erp.unitel.mn/login/password_reset"
+                                style={{ margin: "1rem" }}
+                                className="cursor-pointer font-size-sm font-weight-normal text-muted"
+                              >
+                                Нууц үг мартсан
+                              </a>
+                            </div>
+                          }
+                          rules={[
+                            {
+                              required: true,
+                              message: "Та нууц үгээ оруулна уу",
+                            },
+                          ]}
+                        >
+                          <Input.Password
+                            prefix={<LockOutlined className="text-primary" />}
+                          />
+                        </Form.Item>
+                        <Form.Item>
+                          <Button type="primary" htmlType="submit" block>
+                            Нэвтрэх
+                          </Button>
+                        </Form.Item>
+                        {renderOtherSignIn}
+                      </Form>
+                    </>
+                  </Col>
+                </Row>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+      <Modal
+        title="FriendlyUsers"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        footer={false}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "0.2rem",
-            background: "#C0C0C0",
-          }}
-        >
-          <div
-            style={{
-              background: "#FFFFFF",
-              padding: "1rem",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div>Домайн хаяг эсвэл имэйл хаягаар нэвтэрч орно уу! </div>
-            <br />
-            <br />
-            <br />
-
-            <Form.Item
-              name="mail"
-              rules={[
-                {
-                  required: true,
-                  message: "Имэйл эсвэл домайн нэр оруулна уу! ",
-                },
-              ]}
-            >
-              <Input
-                onChange={(e) => setUserName(e.target.value)}
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Имэйл хаяг"
-              />
-            </Form.Item>
-            <Form.Item
-              name="pass"
-              rules={[{ required: true, message: "Нууц үгээ оруулна уу! " }]}
-            >
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Нууц үг"
-              />
-            </Form.Item>
-            <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Сануулах</Checkbox>
-              </Form.Item>
-
-              <a
-                className="login-form-forgot"
-                style={{ fontSize: "12px" }}
-                href="https://erp.unitel.mn/login/password_reset"
-              >
-                Нууц үгээ мартсан？
-              </a>
-            </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-              >
-                Нэвтрэх
-              </Button>
-            </Form.Item>
-          </div>
-        </div>
-      </Form>
-      <Footer
-        style={{
-          position: "sticky",
-          textAlign: "center",
-          background: "#3d3c3a",
-          color: "white",
-        }}
-      >
-        {" "}
-        {"©2021 "}
-      </Footer>
+        <p>
+          {
+            "Шинэ бүхэнд түрүүлж алхдаг Юнител групп-н ажилтан таны болон гэр бүлийн гишүүдийн тань дугаарыг шинэ биллинг систем рүү түрүүлж нэвтрүүлэхээр болсонг дуулгахад таатай байна. Та гэр бүлийнхээ гишүүдийн дугаарыг сайтар нягталж оруулна уу. "
+          }
+        </p>
+      </Modal>
     </Layout>
   );
 }

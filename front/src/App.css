@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-.cardStyle {
+/* .cardStyle {
   padding: 15px;
   display: flex;
   position: relative;
@@ -12,7 +12,7 @@
   box-shadow: rgb(0 0 0 / 8%) 0px 0.5px 8px 0px;
   background-color: #dfe0e2;
   width: 60rem;
-}
+} */
 .ant-input-number-handler-wrap {
   visibility: hidden !important;
 }
@@ -34,4 +34,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.ant-page-header {
+  box-sizing: border-box;
+  margin: 0;
+  color: #455560;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  position: relative;
+  padding: 16px 24px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
 }
